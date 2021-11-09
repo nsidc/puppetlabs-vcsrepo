@@ -405,7 +405,10 @@ Puppet::Type.type(:vcsrepo).provide(:git, parent: Puppet::Provider::Vcsrepo) do
       # tags, locally existant branches (perhaps outdated), and shas
       at_path { git_with_identity('checkout', '--force', revision) }
     end
+    begin
     unstash if keep_local_changes == :true
+    rescue
+    end
   end
 
   # @!visibility private
